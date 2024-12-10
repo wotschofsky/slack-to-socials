@@ -38,7 +38,7 @@ async function resolveUserTags(text: string): Promise<string> {
     }
     text = text.replace(tag, userAlias);
   }
-  return text;
+  return text.replace(/\(at\)/g, '@');
 }
 
 async function pollSlackAndPost() {
