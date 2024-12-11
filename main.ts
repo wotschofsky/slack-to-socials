@@ -58,7 +58,7 @@ async function pollSlackAndPost() {
             message.ts &&
             parseFloat(message.ts) > parseFloat(lastTimestamp)
           ) {
-            if (message.text) {
+            if (message.subtype === 'message' && message.text) {
               const resolvedText = await resolveUserTags(message.text);
               await postToTwitter(resolvedText);
             }
