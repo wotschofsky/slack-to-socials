@@ -60,7 +60,16 @@ async function pollSlackAndPost() {
           ) {
             if (message.subtype === 'message' && message.text) {
               const resolvedText = await resolveUserTags(message.text);
-              await postToTwitter(resolvedText);
+              const tweetResult = await postToTwitter(resolvedText);
+
+              // Post a reply with the tweet result
+              await slackClient.chat.postMessage({
+                channel: channelId!,
+                thread_ts: message.ts,
+                text: tweetResult.success
+                  ? `Tweet posted: ${tweetResult.message}`
+                  : `Failed to post tweet: ${tweetResult.message}`,
+              });
             }
             lastTimestamp = message.ts;
           }
