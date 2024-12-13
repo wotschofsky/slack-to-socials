@@ -1,22 +1,22 @@
-import "@std/dotenv/load";
+import '@std/dotenv/load';
 
-import { ConversationsHistoryResponse, WebClient } from "npm:@slack/web-api";
+import { ConversationsHistoryResponse, WebClient } from 'npm:@slack/web-api';
 import {
   uniqueNamesGenerator,
   adjectives,
   colors,
   animals,
-} from "npm:unique-names-generator";
+} from 'npm:unique-names-generator';
 
-import redis from "./redis.ts";
-import { postToTwitter } from "./twitter.ts";
-import { postToNostr } from "./nostr.ts";
+import redis from './redis.ts';
+import { postToTwitter } from './twitter.ts';
+import { postToNostr } from './nostr.ts';
 
-const slackToken = Deno.env.get("SLACK_USER_TOKEN");
-const channelId = Deno.env.get("SLACK_CHANNEL_ID");
+const slackToken = Deno.env.get('SLACK_USER_TOKEN');
+const channelId = Deno.env.get('SLACK_CHANNEL_ID');
 
 if (!slackToken || !channelId) {
-  throw new Error("Missing Slack token or channel ID");
+  throw new Error('Missing Slack token or channel ID');
 }
 
 const slackClient = new WebClient(slackToken);
@@ -32,20 +32,20 @@ async function resolveUserTags(text: string): Promise<string> {
     if (!userAlias) {
       userAlias = uniqueNamesGenerator({
         dictionaries: [adjectives, colors, animals],
-        style: "capital",
-        separator: " ",
+        style: 'capital',
+        separator: ' ',
       });
       await redis.set(`user_alias:${userId}`, userAlias);
     }
     text = text.replace(tag, userAlias);
   }
-  return text.replace(/\(at\)/g, "@");
+  return text.replace(/\(at\)/g, '@');
 }
 
 async function pollSlackAndPost() {
   async function poll() {
     try {
-      let lastTimestamp = (await redis.get("last_timestamp")) || "0";
+      let lastTimestamp = (await redis.get('last_timestamp')) || '0';
 
       const result = (await slackClient.conversations.history({
         channel: channelId!,
@@ -60,7 +60,7 @@ async function pollSlackAndPost() {
             parseFloat(message.ts) > parseFloat(lastTimestamp)
           ) {
             if (
-              message.type === "message" &&
+              message.type === 'message' &&
               message.subtype === undefined &&
               message.text
             ) {
@@ -81,10 +81,10 @@ async function pollSlackAndPost() {
             lastTimestamp = message.ts;
           }
         }
-        await redis.set("last_timestamp", lastTimestamp);
+        await redis.set('last_timestamp', lastTimestamp);
       }
     } catch (error) {
-      console.error("Error in poll:", error);
+      console.error('Error in poll:', error);
     }
     // Schedule the next poll after 5 seconds
     setTimeout(poll, 5000);
@@ -97,8 +97,8 @@ async function main() {
   try {
     await pollSlackAndPost();
   } catch (error) {
-    console.error("Uncaught error in main:", error);
+    console.error('Uncaught error in main:', error);
   }
 }
 
-main().catch((error) => console.error("Error in main:", error));
+main().catch((error) => console.error('Error in main:', error));

@@ -1,14 +1,14 @@
-import NDK, { NDKEvent } from "https://esm.sh/@nostr-dev-kit/ndk";
-import { NDKPrivateKeySigner } from "https://esm.sh/@nostr-dev-kit/ndk";
+import NDK, { NDKEvent } from 'https://esm.sh/@nostr-dev-kit/ndk';
+import { NDKPrivateKeySigner } from 'https://esm.sh/@nostr-dev-kit/ndk';
 
 // Global NDK instance
 let globalNDK: NDK | null = null;
 
 const DEFAULT_RELAY_URLS = [
-  "wss://relay.damus.io",
-  "wss://nostr.lu.ke",
-  "wss://relay.camelus.app",
-  "wss://strfry.iris.to",
+  'wss://relay.damus.io',
+  'wss://nostr.lu.ke',
+  'wss://relay.camelus.app',
+  'wss://strfry.iris.to',
 ];
 
 // Function to initialize the global NDK instance
@@ -27,10 +27,10 @@ export async function postToNostr(
 ): Promise<{ success: boolean; message: string }> {
   try {
     // Get the NSEC from environment variables
-    const nsec = Deno.env.get("NOSTR_NSEC")!;
+    const nsec = Deno.env.get('NOSTR_NSEC')!;
 
     if (!nsec) {
-      throw new Error("NOSTR_NSEC environment variable is not set");
+      throw new Error('NOSTR_NSEC environment variable is not set');
     }
 
     // Initialize or get the global NDK instance
@@ -50,10 +50,10 @@ export async function postToNostr(
 
     return {
       success: true,
-      message: "Message posted successfully to nostr network",
+      message: 'Message posted successfully to nostr network',
     };
   } catch (error) {
-    console.error("Error posting to Nostr:", error);
+    console.error('Error posting to Nostr:', error);
     return { success: false, message: `Error: ${error}` };
   }
 }
