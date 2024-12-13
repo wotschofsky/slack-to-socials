@@ -10,6 +10,7 @@ import {
 
 import redis from './redis.ts';
 import { postToTwitter } from './twitter.ts';
+import { postToNostr } from './nostr.ts';
 
 const slackToken = Deno.env.get('SLACK_USER_TOKEN');
 const channelId = Deno.env.get('SLACK_CHANNEL_ID');
@@ -65,14 +66,16 @@ async function pollSlackAndPost() {
             ) {
               const resolvedText = await resolveUserTags(message.text);
               const tweetResult = await postToTwitter(resolvedText);
+              const nostrResult = await postToNostr(resolvedText);
 
               // Post a reply with the tweet result
               await slackClient.chat.postMessage({
                 channel: channelId!,
                 thread_ts: message.ts,
-                text: tweetResult.success
-                  ? `Tweet posted: ${tweetResult.message}`
-                  : `Failed to post tweet: ${tweetResult.message}`,
+                text:
+                  tweetResult.success && nostrResult.success
+                    ? `Tweet posted: ${tweetResult.message} \nNostr posted: ${nostrResult.message}`
+                    : `Failed to post tweet: ${tweetResult.message} \n Failed to post nostr: ${nostrResult.message}`,
               });
             }
             lastTimestamp = message.ts;
