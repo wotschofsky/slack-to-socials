@@ -1,12 +1,266 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@std/dotenv@~0.225.3": "0.225.3"
+    "jsr:@std/dotenv@~0.225.3": "0.225.3",
+    "npm:@slack/web-api@*": "7.8.0",
+    "npm:@twitter-api-v2/plugin-token-refresher@*": "1.0.0_twitter-api-v2@1.18.2",
+    "npm:redis@^4.5.0": "4.6.13_@redis+client@1.5.14",
+    "npm:twitter-api-v2@*": "1.18.2",
+    "npm:unique-names-generator@*": "4.7.1"
   },
   "jsr": {
     "@std/dotenv@0.225.3": {
       "integrity": "a95e5b812c27b0854c52acbae215856d9cce9d4bbf774d938c51d212711e8d4a"
     }
+  },
+  "npm": {
+    "@redis/bloom@1.2.0_@redis+client@1.5.14": {
+      "integrity": "sha512-HG2DFjYKbpNmVXsa0keLHp/3leGJz1mjh09f2RLGGLQZzSHpkmZWuwJbAvo3QcRY8p80m5+ZdXZdYOSBLlp7Cg==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/client@1.5.14": {
+      "integrity": "sha512-YGn0GqsRBFUQxklhY7v562VMOP0DcmlrHHs3IV1mFE3cbxe31IITUkqhBcIhVSI/2JqtWAJXg5mjV4aU+zD0HA==",
+      "dependencies": [
+        "cluster-key-slot",
+        "generic-pool",
+        "yallist"
+      ]
+    },
+    "@redis/graph@1.1.1_@redis+client@1.5.14": {
+      "integrity": "sha512-FEMTcTHZozZciLRl6GiiIB4zGm5z5F3F6a6FZCyrfxdKOhFlGkiAqlexWMBzCi4DcRoyiOsuLfW+cjlGWyExOw==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/json@1.0.6_@redis+client@1.5.14": {
+      "integrity": "sha512-rcZO3bfQbm2zPRpqo82XbW8zg4G/w4W3tI7X8Mqleq9goQjAGLL7q/1n1ZX4dXEAmORVZ4s1+uKLaUOg7LrUhw==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/search@1.1.6_@redis+client@1.5.14": {
+      "integrity": "sha512-mZXCxbTYKBQ3M2lZnEddwEAks0Kc7nauire8q20oA0oA/LoA+E/b5Y5KZn232ztPb1FkIGqo12vh3Lf+Vw5iTw==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@redis/time-series@1.0.5_@redis+client@1.5.14": {
+      "integrity": "sha512-IFjIgTusQym2B5IZJG3XKr5llka7ey84fw/NOYqESP5WUfQs9zz1ww/9+qoz4ka/S6KcGBodzlCeZ5UImKbscg==",
+      "dependencies": [
+        "@redis/client"
+      ]
+    },
+    "@slack/logger@4.0.0": {
+      "integrity": "sha512-Wz7QYfPAlG/DR+DfABddUZeNgoeY7d1J39OCR2jR+v7VBsB8ezulDK5szTnDDPDwLH5IWhLvXIHlCFZV7MSKgA==",
+      "dependencies": [
+        "@types/node"
+      ]
+    },
+    "@slack/types@2.14.0": {
+      "integrity": "sha512-n0EGm7ENQRxlXbgKSrQZL69grzg1gHLAVd+GlRVQJ1NSORo0FrApR7wql/gaKdu2n4TO83Sq/AmeUOqD60aXUA=="
+    },
+    "@slack/web-api@7.8.0": {
+      "integrity": "sha512-d4SdG+6UmGdzWw38a4sN3lF/nTEzsDxhzU13wm10ejOpPehtmRoqBKnPztQUfFiWbNvSb4czkWYJD4kt+5+Fuw==",
+      "dependencies": [
+        "@slack/logger",
+        "@slack/types",
+        "@types/node",
+        "@types/retry",
+        "axios",
+        "eventemitter3@5.0.1",
+        "form-data",
+        "is-electron",
+        "is-stream",
+        "p-queue",
+        "p-retry",
+        "retry"
+      ]
+    },
+    "@twitter-api-v2/plugin-token-refresher@1.0.0_twitter-api-v2@1.18.2": {
+      "integrity": "sha512-tN4TNDbnwn1uY6uu4g3hSj5crHTeJDOfI3on8xUBm8XaXWLrjThsZlwjpF+O1PK2lPhznmluATPHMcYU9Wf73g==",
+      "dependencies": [
+        "twitter-api-v2"
+      ]
+    },
+    "@types/node@22.10.1": {
+      "integrity": "sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==",
+      "dependencies": [
+        "undici-types"
+      ]
+    },
+    "@types/retry@0.12.0": {
+      "integrity": "sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA=="
+    },
+    "asynckit@0.4.0": {
+      "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
+    },
+    "axios@1.7.9": {
+      "integrity": "sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==",
+      "dependencies": [
+        "follow-redirects",
+        "form-data",
+        "proxy-from-env"
+      ]
+    },
+    "cluster-key-slot@1.1.2": {
+      "integrity": "sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA=="
+    },
+    "combined-stream@1.0.8": {
+      "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
+      "dependencies": [
+        "delayed-stream"
+      ]
+    },
+    "delayed-stream@1.0.0": {
+      "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ=="
+    },
+    "eventemitter3@4.0.7": {
+      "integrity": "sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw=="
+    },
+    "eventemitter3@5.0.1": {
+      "integrity": "sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA=="
+    },
+    "follow-redirects@1.15.9": {
+      "integrity": "sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ=="
+    },
+    "form-data@4.0.0": {
+      "integrity": "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==",
+      "dependencies": [
+        "asynckit",
+        "combined-stream",
+        "mime-types"
+      ]
+    },
+    "generic-pool@3.9.0": {
+      "integrity": "sha512-hymDOu5B53XvN4QT9dBmZxPX4CWhBPPLguTZ9MMFeFa/Kg0xWVfylOVNlJji/E7yTZWFd/q9GO5TxDLq156D7g=="
+    },
+    "is-electron@2.2.2": {
+      "integrity": "sha512-FO/Rhvz5tuw4MCWkpMzHFKWD2LsfHzIb7i6MdPYZ/KW7AlxawyLkqdy+jPZP1WubqEADE3O4FUENlJHDfQASRg=="
+    },
+    "is-stream@2.0.1": {
+      "integrity": "sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg=="
+    },
+    "mime-db@1.52.0": {
+      "integrity": "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg=="
+    },
+    "mime-types@2.1.35": {
+      "integrity": "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==",
+      "dependencies": [
+        "mime-db"
+      ]
+    },
+    "p-finally@1.0.0": {
+      "integrity": "sha512-LICb2p9CB7FS+0eR1oqWnHhp0FljGLZCWBE9aix0Uye9W8LTQPwMTYVGWQWIw9RdQiDg4+epXQODwIYJtSJaow=="
+    },
+    "p-queue@6.6.2": {
+      "integrity": "sha512-RwFpb72c/BhQLEXIZ5K2e+AhgNVmIejGlTgiB9MzZ0e93GRvqZ7uSi0dvRF7/XIXDeNkra2fNHBxTyPDGySpjQ==",
+      "dependencies": [
+        "eventemitter3@4.0.7",
+        "p-timeout"
+      ]
+    },
+    "p-retry@4.6.2": {
+      "integrity": "sha512-312Id396EbJdvRONlngUx0NydfrIQ5lsYu0znKVUzVvArzEIt08V1qhtyESbGVd1FGX7UKtiFp5uwKZdM8wIuQ==",
+      "dependencies": [
+        "@types/retry",
+        "retry"
+      ]
+    },
+    "p-timeout@3.2.0": {
+      "integrity": "sha512-rhIwUycgwwKcP9yTOOFK/AKsAopjjCakVqLHePO3CC6Mir1Z99xT+R63jZxAT5lFZLa2inS5h+ZS2GvR99/FBg==",
+      "dependencies": [
+        "p-finally"
+      ]
+    },
+    "proxy-from-env@1.1.0": {
+      "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
+    },
+    "redis@4.6.13_@redis+client@1.5.14": {
+      "integrity": "sha512-MHgkS4B+sPjCXpf+HfdetBwbRz6vCtsceTmw1pHNYJAsYxrfpOP6dz+piJWGos8wqG7qb3vj/Rrc5qOlmInUuA==",
+      "dependencies": [
+        "@redis/bloom",
+        "@redis/client",
+        "@redis/graph",
+        "@redis/json",
+        "@redis/search",
+        "@redis/time-series"
+      ]
+    },
+    "retry@0.13.1": {
+      "integrity": "sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg=="
+    },
+    "twitter-api-v2@1.18.2": {
+      "integrity": "sha512-ggImmoAeVgETYqrWeZy+nWnDpwgTP+IvFEc03Pitt1HcgMX+Yw17rP38Fb5FFTinuyNvS07EPtAfZ184uIyB0A=="
+    },
+    "undici-types@6.20.0": {
+      "integrity": "sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg=="
+    },
+    "unique-names-generator@4.7.1": {
+      "integrity": "sha512-lMx9dX+KRmG8sq6gulYYpKWZc9RlGsgBR6aoO8Qsm3qvkSJ+3rAymr+TnV8EDMrIrwuFJ4kruzMWM/OpYzPoow=="
+    },
+    "yallist@4.0.0": {
+      "integrity": "sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A=="
+    }
+  },
+  "redirects": {
+    "https://esm.sh/@nostr-dev-kit/ndk": "https://esm.sh/@nostr-dev-kit/ndk@2.10.7"
+  },
+  "remote": {
+    "https://esm.sh/@nostr-dev-kit/ndk@2.10.7": "b89c6a98fae209118bed65edd1e906541ea2d312cea95f4c4285913cda18d587",
+    "https://esm.sh/v135/@noble/ciphers@0.5.3/denonext/_poly1305.js": "420068ed689316c19264f4c91ab5bc0fedf9197a2f15c921bf1825a1791f1405",
+    "https://esm.sh/v135/@noble/ciphers@0.5.3/denonext/_polyval.js": "45a3f59050fee4e143537894709ad1949a7125d3463a3f1e4399afed14b8f811",
+    "https://esm.sh/v135/@noble/ciphers@0.5.3/denonext/aes.js": "8341b7cdb016d1a4cbb55dfa8d42cf48dfce0f9817b190c6260105b5f9a26e51",
+    "https://esm.sh/v135/@noble/ciphers@0.5.3/denonext/chacha.js": "e8d6f8f40c1443d70972ef483361159375a368d362349367d8e27b1186ef91a2",
+    "https://esm.sh/v135/@noble/ciphers@0.5.3/denonext/utils.js": "746b9c4ef92912b16426c7b5421d7aa782a2a542006ecb1e793746b6c3dca1a6",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/_shortw_utils.js": "47a889dd52d7b29e8bc0d641597239d0ae0b1f10a9ee3b114c3dbd273172e9af",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/abstract/curve.js": "d4ac165ea7e6b5e401112e5c91d38a258fc6fe1dc3afa1c391cc2e74141d2228",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/abstract/hash-to-curve.js": "eb943276f11698b72a1da4dc51458edac705a3d827b0add5038a15c7aa6ab770",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/abstract/modular.js": "6d0fba13e486d0929f4ab81f7774d75b2254b934e0be7dd3fd96b959c0dd7600",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/abstract/utils.js": "33d6521fbb6756d058dff59616da1e55a55972b4848976c27e81c4b4bc36c0e4",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/abstract/weierstrass.js": "5cb85ed9ad826f7e623f0052a55a865ad957eab06c30697804157844e82416a9",
+    "https://esm.sh/v135/@noble/curves@1.2.0/denonext/secp256k1.js": "da024e491d38a1407d3bdf54f669bbefb879b710dfae945d4ca58a676fcfd37d",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/_shortw_utils.js": "668d6ad7c801dd2df97055ea59a9c85ab3d9deb4c5ce661647057e82ee107e48",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/abstract/curve.js": "2a50d22e6b636069d59f36b0eb4977925d4d4fb1c1bfbdcb0ae6802bf16683aa",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/abstract/hash-to-curve.js": "98926f9ff243a8d4974df91cfb249844b55a58a4576894c12701f84888cdb445",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/abstract/modular.js": "20bad50ff6dfd2c7dee765c881c48205c71a30e95beb68a722438ad39344951a",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/abstract/utils.js": "29f96150bc3911be0ea7360d7958da92ae77ec885781a206cc1ca6f57178b759",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/abstract/weierstrass.js": "e9254d44ce4c126d5ace150e2f842fd6d2cef112ec64800e5dff6012c2dcb53a",
+    "https://esm.sh/v135/@noble/curves@1.7.0/denonext/secp256k1.js": "db596e95e20c644736e7451479c48de89e33b1e32fb877ed068634a5f2315efd",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/_assert.js": "d22dfffef44f75a84f61b9cedac204d6d39d6ccb14fc489e81bb9ab68de5f1c7",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/_sha2.js": "79869533e91a0a6ed446fb6d203c5ae9c458dc7ce990760446f4dbc0698eddab",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/crypto.js": "a66049789449b1cb447eb89a7f3f7adcd1ec4063beeacd3e0b6d84138ef38690",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/hkdf.js": "c7edc9f935a28ce8d7b8c3de89cbb63900e30aac769a114dae6193847d920f0e",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/hmac.js": "04377300ce8017281732eada2e456fcbafd0dfe8fa45627d08456d82bf0e021a",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/sha256.js": "6ea97edce4ae3dd2dd35aed79b9fef4f246d8b9112fe9f17c96c8b01d975473f",
+    "https://esm.sh/v135/@noble/hashes@1.3.1/denonext/utils.js": "6da366e41886df220cc235aa6152c34abbcd688bee899e2eabbb885a2c5ae6ce",
+    "https://esm.sh/v135/@noble/hashes@1.3.2/denonext/_assert.js": "8b3fcc3a8d18f25fded5ecb46250f2009f11e0586b0e1e33757d12b6d1b05591",
+    "https://esm.sh/v135/@noble/hashes@1.3.2/denonext/_sha2.js": "9571edb1dbcf00041aaa5b4d9bafb109bb9944bf47452fae653206a0242c2a0a",
+    "https://esm.sh/v135/@noble/hashes@1.3.2/denonext/crypto.js": "3d09b6d143b1cb8ec95375586a7d9a30a02b60cb1de984ba374c779f8e6c877a",
+    "https://esm.sh/v135/@noble/hashes@1.3.2/denonext/hmac.js": "23f7c9bebfbb777754e776b3197005b866742ce752945bfca17bc3c3a59e0e21",
+    "https://esm.sh/v135/@noble/hashes@1.3.2/denonext/sha256.js": "0c34ea09faae3f2b64691a608ffbe5b3a332f433138039c3bef2e7a53ee7f6d7",
+    "https://esm.sh/v135/@noble/hashes@1.3.2/denonext/utils.js": "bbfe700df9ae51f477688035ec3dd96739f77fd2f50439a4c84bcbc1aa7c7d4a",
+    "https://esm.sh/v135/@noble/hashes@1.6.0/denonext/_assert.js": "5145c861a8aadcf9a11ff8675543119688bb86ab3f3d3672dd962232cd247e3c",
+    "https://esm.sh/v135/@noble/hashes@1.6.0/denonext/_md.js": "016a6153c9b2488233aeb206a27f9a6be8d8e407606ae287c77964178399f73b",
+    "https://esm.sh/v135/@noble/hashes@1.6.0/denonext/crypto.js": "18154fc6ee4b0a10169b73e06edcbec5e53b589c6c11f170fcc3feef65338826",
+    "https://esm.sh/v135/@noble/hashes@1.6.0/denonext/hmac.js": "3c405fe1dd4532fff591e4b4382c5ac6f92162a2414a2a54fbfb80ac1b2004d2",
+    "https://esm.sh/v135/@noble/hashes@1.6.0/denonext/sha256.js": "3c345b21c758a159f181ae8f87bd711f493e20df961c3183f7cbb0a0266efe6f",
+    "https://esm.sh/v135/@noble/hashes@1.6.0/denonext/utils.js": "701024db4648e434281ffb0bec4daf3952b74c1eba5c5f49c9fedf2d70b8e204",
+    "https://esm.sh/v135/@noble/hashes@1.6.1/denonext/_assert.js": "f499c2a946360098ade3449dd88e35655bea4f24bbaaeda4bcb0797f999d07eb",
+    "https://esm.sh/v135/@noble/hashes@1.6.1/denonext/_md.js": "f4b7c154d5238fd14dfb1e9089daa1268665df4b41ebc42f8b67b898e08e9fc8",
+    "https://esm.sh/v135/@noble/hashes@1.6.1/denonext/crypto.js": "f7ee9a399f912bea76bf39772d59e4b08cf36fc2e10d62f9b4b1e31e2a2f6122",
+    "https://esm.sh/v135/@noble/hashes@1.6.1/denonext/sha256.js": "84813ca6ed82bf7cc6627247683b184529723070645b07c9d6ee9c3707bbdca7",
+    "https://esm.sh/v135/@noble/hashes@1.6.1/denonext/utils.js": "3e789b2cbdb37015e66e3b82a8d85551c63dbcba584d7b91cf958e7effc14dd8",
+    "https://esm.sh/v135/@nostr-dev-kit/ndk@2.10.7/denonext/ndk.mjs": "1d85da92bfe0b07476f9e0555a39232be93e125e502fb2e763479155f1c7f546",
+    "https://esm.sh/v135/@scure/base@1.1.1/denonext/base.mjs": "8f9cb853c4f6a4367c2f5bfb921d54b4ed61e41829944435e5878781b54d94a9",
+    "https://esm.sh/v135/@scure/base@1.2.1/denonext/base.mjs": "f8aaba996c36a4a30610031551b5a838b7152ae2db66d4d3a319c23702cfebce",
+    "https://esm.sh/v135/debug@4.4.0/denonext/debug.mjs": "9d4918dd6c8f5d00a11bfbcbd582cc64edb67cbd3ad7292e05f3985c7ec7c393",
+    "https://esm.sh/v135/light-bolt11-decoder@3.2.0/denonext/light-bolt11-decoder.mjs": "743ec74d6fdad3e60fa7667a1f42b291a10a614d5e0bd8b8e7e6c9684083d007",
+    "https://esm.sh/v135/ms@2.1.3/denonext/ms.mjs": "0f06597e493998793b8f52232868976128fca326eec3bcd56f10e66e6efd1839",
+    "https://esm.sh/v135/nostr-tools@2.10.4/denonext/nostr-tools.mjs": "ac488947624a718a4e4e879d777bf1b0122cb4b3ebcfc3e03273b3e66ba73a31",
+    "https://esm.sh/v135/tseep@1.2.2/denonext/tseep.mjs": "f7f1b34148626074ff69f56262c17ac8876610a69d2d55e29ad4bd415ff0b970",
+    "https://esm.sh/v135/typescript-lru-cache@2.0.0/denonext/typescript-lru-cache.mjs": "1868c30127326f2b5dad6afc9e15cc4b314c5c4600a8204e18004e2b9f799213"
   },
   "workspace": {
     "dependencies": [

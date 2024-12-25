@@ -1,6 +1,6 @@
-import '@std/dotenv/load';
+import { load as loadEnv } from '@std/dotenv';
 
-import { ConversationsHistoryResponse, WebClient } from 'npm:@slack/web-api';
+import type { ConversationsHistoryResponse } from 'npm:@slack/web-api';
 import {
   uniqueNamesGenerator,
   adjectives,
@@ -8,18 +8,21 @@ import {
   animals,
 } from 'npm:unique-names-generator';
 
-import redis from './redis.ts';
-import { postToTwitter } from './twitter.ts';
-import { postToNostr } from './nostr.ts';
+import redis from './lib/redis.ts';
+import { TwitterClient } from './lib/twitter.ts';
+import { NostrClient } from './lib/nostr.ts';
+import { channelId, slackClient } from './lib/slack.ts';
 
-const slackToken = Deno.env.get('SLACK_USER_TOKEN');
-const channelId = Deno.env.get('SLACK_CHANNEL_ID');
-
-if (!slackToken || !channelId) {
-  throw new Error('Missing Slack token or channel ID');
+try {
+  await loadEnv({ export: true });
+} catch (error) {
+  console.warn('Unable to load .env file:', error);
 }
 
-const slackClient = new WebClient(slackToken);
+const socialClients = [new TwitterClient(), new NostrClient()];
+for (const socialClient of socialClients) {
+  await socialClient.init();
+}
 
 async function resolveUserTags(text: string): Promise<string> {
   const userTagRegex = /<@([A-Z0-9]+)>/g;
@@ -42,63 +45,74 @@ async function resolveUserTags(text: string): Promise<string> {
   return text.replace(/\(at\)/g, '@');
 }
 
-async function pollSlackAndPost() {
-  async function poll() {
-    try {
-      let lastTimestamp = (await redis.get('last_timestamp')) || '0';
+async function pollAndPost() {
+  const lastTimestamp = (await redis.get('last_timestamp')) || '0';
 
-      const result = (await slackClient.conversations.history({
-        channel: channelId!,
-        oldest: lastTimestamp,
-        limit: 10,
-      })) as ConversationsHistoryResponse;
+  const result = (await slackClient.conversations.history({
+    channel: channelId,
+    oldest: lastTimestamp,
+    limit: 1,
+  })) as ConversationsHistoryResponse;
 
-      if (result.messages && result.messages.length > 0) {
-        for (const message of result.messages.reverse()) {
-          if (
-            message.ts &&
-            parseFloat(message.ts) > parseFloat(lastTimestamp)
-          ) {
-            if (
-              message.type === 'message' &&
-              message.subtype === undefined &&
-              message.text
-            ) {
-              const resolvedText = await resolveUserTags(message.text);
-              const tweetResult = await postToTwitter(resolvedText);
-              const nostrResult = await postToNostr(resolvedText);
+  if (!result.messages?.length) return;
 
-              // Post a reply with the tweet result
-              await slackClient.chat.postMessage({
-                channel: channelId!,
-                thread_ts: message.ts,
-                text:
-                  tweetResult.success && nostrResult.success
-                    ? `Tweet posted: ${tweetResult.message} \nNostr posted: ${nostrResult.message}`
-                    : `Failed to post tweet: ${tweetResult.message} \n Failed to post nostr: ${nostrResult.message}`,
-              });
-            }
-            lastTimestamp = message.ts;
-          }
-        }
-        await redis.set('last_timestamp', lastTimestamp);
-      }
-    } catch (error) {
-      console.error('Error in poll:', error);
-    }
-    // Schedule the next poll after 5 seconds
-    setTimeout(poll, 5000);
+  const message = result.messages[0];
+
+  if (!message.ts) {
+    await redis.set('last_timestamp', parseFloat(lastTimestamp) + 1);
+    return;
   }
-  // Start the polling loop
-  poll();
+
+  if (
+    message.type !== 'message' ||
+    message.subtype !== undefined ||
+    !message.text
+  ) {
+    await redis.set('last_timestamp', message.ts);
+    return;
+  }
+
+  const resolvedText = await resolveUserTags(message.text);
+
+  const results = await Promise.allSettled(
+    socialClients.map((client) => client.post(resolvedText))
+  );
+
+  const resultsText = results
+    .map((result, index) => {
+      if (result.status === 'rejected')
+        return `Failed posting to ${socialClients[index].name}: Redacted Error (see logs)`;
+      if (!result.value.success)
+        return `Failed posting to ${socialClients[index].name}: ${result.value.message}`;
+      return `Successfully posted to ${socialClients[index].name}: ${result.value.message}`;
+    })
+    .join('\n');
+
+  console.info(resultsText);
+
+  try {
+    await slackClient.chat.postMessage({
+      channel: channelId!,
+      thread_ts: message.ts,
+      text: resultsText,
+    });
+  } catch (error) {
+    console.error('Error reporting post status on Slack:', error);
+  }
+
+  await redis.set('last_timestamp', message.ts);
 }
 
 async function main() {
-  try {
-    await pollSlackAndPost();
-  } catch (error) {
-    console.error('Uncaught error in main:', error);
+  while (true) {
+    try {
+      await pollAndPost();
+    } catch (error) {
+      console.error('Error while polling:', error);
+    } finally {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
   }
 }
 
-main().catch((error) => console.error('Error in main:', error));
+main();

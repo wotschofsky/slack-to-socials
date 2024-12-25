@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "start": "deno run --allow-read=.env --allow-env --allow-sys --allow-net main.ts"
+    "start": "deno run --allow-env --allow-sys --allow-net main.ts",
+    "dev": "deno run --watch --allow-read=.env --allow-env --allow-sys --allow-net main.ts"
   },
   "imports": {
     "@std/dotenv": "jsr:@std/dotenv@^0.225.3"
