@@ -1,17 +1,12 @@
 import { load as loadEnv } from '@std/dotenv';
 
 import type { ConversationsHistoryResponse } from 'npm:@slack/web-api';
-import {
-  uniqueNamesGenerator,
-  adjectives,
-  colors,
-  animals,
-} from 'npm:unique-names-generator';
 
-import redis from './lib/redis.ts';
-import { TwitterClient } from './lib/twitter.ts';
 import { NostrClient } from './lib/nostr.ts';
+import redis from './lib/redis.ts';
 import { channelId, slackClient } from './lib/slack.ts';
+import { TwitterClient } from './lib/twitter.ts';
+import { isUnsuitableMessage, processMessage } from './lib/util/message.ts';
 
 try {
   await loadEnv({ export: true });
@@ -22,27 +17,6 @@ try {
 const socialClients = [new TwitterClient(), new NostrClient()];
 for (const socialClient of socialClients) {
   await socialClient.init();
-}
-
-async function resolveUserTags(text: string): Promise<string> {
-  const userTagRegex = /<@([A-Z0-9]+)>/g;
-  const userTags = text.match(userTagRegex) || [];
-  for (const tag of userTags) {
-    const userId = tag.match(/<@([A-Z0-9]+)>/)?.[1];
-    if (!userId) continue;
-
-    let userAlias = await redis.get(`user_alias:${userId}`);
-    if (!userAlias) {
-      userAlias = uniqueNamesGenerator({
-        dictionaries: [adjectives, colors, animals],
-        style: 'capital',
-        separator: ' ',
-      });
-      await redis.set(`user_alias:${userId}`, userAlias);
-    }
-    text = text.replace(tag, userAlias);
-  }
-  return text.replace(/\(at\)/g, '@');
 }
 
 async function pollAndPost() {
@@ -58,21 +32,16 @@ async function pollAndPost() {
 
   const message = result.messages[0];
 
-  if (!message.ts) {
-    await redis.set('last_timestamp', parseFloat(lastTimestamp) + 1);
+  if (!message.ts || isUnsuitableMessage(message)) {
+    // Skip message and set timestamp using message.ts if it exists, otherwise increment lastTimestamp
+    await redis.set(
+      'last_timestamp',
+      message.ts || parseFloat(lastTimestamp) + 1
+    );
     return;
   }
 
-  if (
-    message.type !== 'message' ||
-    message.subtype !== undefined ||
-    !message.text
-  ) {
-    await redis.set('last_timestamp', message.ts);
-    return;
-  }
-
-  const resolvedText = await resolveUserTags(message.text);
+  const resolvedText = await processMessage(message.text);
 
   const results = await Promise.allSettled(
     socialClients.map((client) => client.post(resolvedText))

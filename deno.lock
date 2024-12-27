@@ -4,6 +4,7 @@
     "jsr:@std/dotenv@~0.225.3": "0.225.3",
     "npm:@slack/web-api@*": "7.8.0",
     "npm:@twitter-api-v2/plugin-token-refresher@*": "1.0.0_twitter-api-v2@1.18.2",
+    "npm:node-emoji@^2.1.0": "2.2.0",
     "npm:redis@^4.5.0": "4.6.13_@redis+client@1.5.14",
     "npm:twitter-api-v2@*": "1.18.2",
     "npm:unique-names-generator@*": "4.7.1"
@@ -51,6 +52,9 @@
       "dependencies": [
         "@redis/client"
       ]
+    },
+    "@sindresorhus/is@4.6.0": {
+      "integrity": "sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw=="
     },
     "@slack/logger@4.0.0": {
       "integrity": "sha512-Wz7QYfPAlG/DR+DfABddUZeNgoeY7d1J39OCR2jR+v7VBsB8ezulDK5szTnDDPDwLH5IWhLvXIHlCFZV7MSKgA==",
@@ -104,6 +108,9 @@
         "proxy-from-env"
       ]
     },
+    "char-regex@1.0.2": {
+      "integrity": "sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw=="
+    },
     "cluster-key-slot@1.1.2": {
       "integrity": "sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA=="
     },
@@ -115,6 +122,9 @@
     },
     "delayed-stream@1.0.0": {
       "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ=="
+    },
+    "emojilib@2.4.0": {
+      "integrity": "sha512-5U0rVMU5Y2n2+ykNLQqMoqklN9ICBT/KsvC1Gz6vqHbz2AXXGkG+Pm5rMWk/8Vjrr/mY9985Hi8DYzn1F09Nyw=="
     },
     "eventemitter3@4.0.7": {
       "integrity": "sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw=="
@@ -149,6 +159,15 @@
       "integrity": "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==",
       "dependencies": [
         "mime-db"
+      ]
+    },
+    "node-emoji@2.2.0": {
+      "integrity": "sha512-Z3lTE9pLaJF47NyMhd4ww1yFTAP8YhYI8SleJiHzM46Fgpm5cnNzSl9XfzFNqbaz+VlJrIj3fXQ4DeN1Rjm6cw==",
+      "dependencies": [
+        "@sindresorhus/is",
+        "char-regex",
+        "emojilib",
+        "skin-tone"
       ]
     },
     "p-finally@1.0.0": {
@@ -191,11 +210,20 @@
     "retry@0.13.1": {
       "integrity": "sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg=="
     },
+    "skin-tone@2.0.0": {
+      "integrity": "sha512-kUMbT1oBJCpgrnKoSr0o6wPtvRWT9W9UKvGLwfJYO2WuahZRHOpEyL1ckyMGgMWh0UdpmaoFqKKD29WTomNEGA==",
+      "dependencies": [
+        "unicode-emoji-modifier-base"
+      ]
+    },
     "twitter-api-v2@1.18.2": {
       "integrity": "sha512-ggImmoAeVgETYqrWeZy+nWnDpwgTP+IvFEc03Pitt1HcgMX+Yw17rP38Fb5FFTinuyNvS07EPtAfZ184uIyB0A=="
     },
     "undici-types@6.20.0": {
       "integrity": "sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg=="
+    },
+    "unicode-emoji-modifier-base@1.0.0": {
+      "integrity": "sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g=="
     },
     "unique-names-generator@4.7.1": {
       "integrity": "sha512-lMx9dX+KRmG8sq6gulYYpKWZc9RlGsgBR6aoO8Qsm3qvkSJ+3rAymr+TnV8EDMrIrwuFJ4kruzMWM/OpYzPoow=="
@@ -264,7 +292,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/dotenv@~0.225.3"
+      "jsr:@std/dotenv@~0.225.3",
+      "npm:node-emoji@^2.1.0"
     ]
   }
 }
