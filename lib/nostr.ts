@@ -1,5 +1,4 @@
-import NDK, { NDKEvent } from 'https://esm.sh/@nostr-dev-kit/ndk';
-import { NDKPrivateKeySigner } from 'https://esm.sh/@nostr-dev-kit/ndk';
+import NDK, { NDKEvent, NDKPrivateKeySigner } from 'npm:@nostr-dev-kit/ndk';
 
 import { SocialClient } from './base-social.ts';
 
